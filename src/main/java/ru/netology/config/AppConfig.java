@@ -1,7 +1,6 @@
 package ru.netology.config;
 
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import ru.netology.controller.PostController;
 import ru.netology.repository.PostRepository;
@@ -14,11 +13,11 @@ public class AppConfig {
         return new PostRepository();
     }
     @Bean
-    public PostService postService() {
-        return new PostService(postRepository());
+    public PostService postService(PostRepository postRepository) {
+        return new PostService(postRepository);
     }
     @Bean
-    public PostController postController() {
-        return new PostController(postService());
+    public PostController postController(PostService postService) {
+        return new PostController(postService);
     }
 }
