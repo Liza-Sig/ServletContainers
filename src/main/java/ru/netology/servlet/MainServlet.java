@@ -28,11 +28,11 @@ public class MainServlet extends HttpServlet {
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) {
         // если деплоились в root context, то достаточно этого
-        final var path = req.getRequestURI();
+        final var path = req.getRequestURI().substring(req.getContextPath().length());
         final var method = req.getMethod();
         try {
             if (GET.equals(method) && POSTS_PATH.equals(path)) {
-                controller.all(resp, getID(path));
+                controller.all(resp);
                 return;
             }
             if (GET.equals(method) && path.matches(POSTS_ID_PATH)) {
